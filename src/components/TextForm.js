@@ -8,17 +8,26 @@ export default function TextForm(props) {
     }
     const handleUpClick = () => {
     setText(text.toUpperCase());
+    props.showAlert("Converted to UpperCase", "success");
     }
     const handleLoClick = () => {
       setText(text.toLowerCase());
+      props.showAlert("Converted to LowerCase", "success");
     }
     const handleClearClick = () => {
       setText("");
+      props.showAlert("Text has been cleared", "success");
     }
     const handleCopy = () => { 
       var text = document.getElementById("myBox");
       text.select();
       navigator.clipboard.writeText(text.value);
+      props.showAlert("Copied to Clipbooard", "success");
+    }
+    const handleExtaSpaces = () => {
+      let newText = text.split(/[ ]+/);
+      setText(newText.join(" "));
+      props.showAlert("Extra spaces have been removed", "success");
     }
   return (
     <>
@@ -32,13 +41,14 @@ export default function TextForm(props) {
   <button className="btn btn-primary my-3 mx-3" onClick={handleLoClick}>Convert to lowerCase</button>
   <button className="btn btn-primary my-3" onClick={handleClearClick}>Clear All Text</button>
   <button className="btn btn-primary my-3 mx-3" onClick={handleCopy}>Copy All Text</button>
+  <button className="btn btn-primary my-3" onClick={handleExtaSpaces}>Remove Extra Spaces</button>
     </div>
     <div className="container my-4">
       <h2>Your Text summary</h2>
       <p>{text.split(' ').length} words, {text.length} characters</p>
       <p>{0.008 * text.split(' ').length} Minutes to read (Time required to read)</p>
       <h3>Preview</h3>
-      <p>{text}</p>
+      <p>{text.length>0?text:"Enter something in the Textbox above to preview here"}</p>
     </div>
     </>
   )
