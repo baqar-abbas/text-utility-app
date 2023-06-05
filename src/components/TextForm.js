@@ -37,16 +37,16 @@ export default function TextForm(props) {
   <div className="mb=3">
   <textarea className="form-control" id="myBox" rows="8" onChange = {handleOnChange} value={text} placeholder="Enter Text here"></textarea>
   </div>
-  <button className="btn btn-primary my-3" onClick={handleUpClick}>Convert to UpperCase</button>
-  <button className="btn btn-primary my-3 mx-3" onClick={handleLoClick}>Convert to lowerCase</button>
-  <button className="btn btn-primary my-3" onClick={handleClearClick}>Clear All Text</button>
-  <button className="btn btn-primary my-3 mx-3" onClick={handleCopy}>Copy All Text</button>
-  <button className="btn btn-primary my-3" onClick={handleExtaSpaces}>Remove Extra Spaces</button>
+  <button disabled={text.length === 0} className="btn btn-primary my-3" onClick={handleUpClick}>Convert to UpperCase</button>
+  <button disabled={text.length === 0} className="btn btn-primary my-3 mx-3" onClick={handleLoClick}>Convert to lowerCase</button>
+  <button disabled={text.length === 0} className="btn btn-primary my-3" onClick={handleClearClick}>Clear All Text</button>
+  <button disabled={text.length === 0} className="btn btn-primary my-3 mx-3" onClick={handleCopy}>Copy All Text</button>
+  <button disabled={text.length === 0} className="btn btn-primary my-3" onClick={handleExtaSpaces}>Remove Extra Spaces</button>
     </div>
     <div className="container my-4">
       <h2>Your Text summary</h2>
-      <p>{text.split(' ').length} words, {text.length} characters</p>
-      <p>{0.008 * text.split(' ').length} Minutes to read (Time required to read)</p>
+      <p>{text.split(/\s+/).filter((element) => {return element.length!==0}).length} words, {text.length} characters</p>
+      <p>{0.008 * text.split(' ').filter((element)=>{return element.length!==0}).length} Minutes to read (Time required to read)</p>
       <h3>Preview</h3>
       <p>{text.length>0?text:"Enter something in the Textbox above to preview here"}</p>
     </div>
